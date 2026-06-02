@@ -40,6 +40,8 @@
 
     services.displayManager.ly.enable = true;
 
+    services.tailscale.enable = true;
+
     environment.systemPackages = with pkgs; [
       git
       firefox
@@ -49,6 +51,8 @@
       yazi
       networkmanagerapplet
       zip
+      discord
+      tailscale
     ];
 
     users.users.guava = {
