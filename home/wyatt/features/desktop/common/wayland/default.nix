@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    "./kitty.nix"
+    ./kitty.nix
 
   ];
 
@@ -8,4 +8,4 @@
     wf-recorder
     wl-clipboard
   ];
-
+}

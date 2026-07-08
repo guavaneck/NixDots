@@ -10,5 +10,6 @@
     bat
     eza
     nh
+    fastfetch
   ];
 }

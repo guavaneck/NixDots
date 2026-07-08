@@ -1,4 +1,3 @@
-{ config, pkgs, ...}: 
-in {
+{ config, pkgs, ...}: {
   home.packages = with pkgs; [vesktop];
 }

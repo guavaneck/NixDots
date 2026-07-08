@@ -1,10 +1,15 @@
 {
   lib,
   config,
+  inputs,
   outputs,
   ...
 }: {
-  imports = (builtins.attrValues outputs.homeManagerModules);
+  imports =
+    [
+      inputs.nixvim.homeModules.nixvim
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   programs.home-manager.enable = true;
 

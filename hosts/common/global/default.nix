@@ -3,18 +3,18 @@
   outputs,
   ...
 }: {
-  imports =
-    [
+  imports = [
       inputs.home-manager.nixosModules.home-manager
       ./nix.nix
-      ./fish.nix
       ./tailscale.nix
-      ./pipewire.nix
-    ]
-    ++ (builtins.attrValues outputs.nixosModules);
+  ];
+   
+  programs.fish.enable = true;
 
   home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {inherit inputs outputs;};
+  home-manager.backupFileExtension = "backup";
 
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;

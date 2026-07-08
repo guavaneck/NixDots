@@ -13,6 +13,14 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    swaymonad = {
+      url = "github:nicolasavru/swaymonad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -35,7 +43,8 @@
   in {
     homeManagerModules = import ./modules/home-manager;
     overlays = import ./overlays {inherit inputs outputs;};
-    
+   
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {

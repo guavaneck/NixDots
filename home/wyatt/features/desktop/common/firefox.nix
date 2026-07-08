@@ -2,11 +2,11 @@
 
   programs.firefox = {
     enable = true;
-    configPath = ".mozilla/firefox"
+    configPath = ".mozilla/firefox";
     profiles.wyatt = {
       search = {
         force = true;
-        default = "ddg"
+        default = "ddg";
         engines = {
           bing.metaData.hidden = true;
         };

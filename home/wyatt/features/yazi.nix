@@ -1,6 +1,7 @@
-{
+{ pkgs, config, ... }: {
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";
 
     settings = {
       mgr = {
@@ -15,7 +16,7 @@
       };
 
       opener = {
-        edit = [{run = ''$EDITOR "$@"''; block = true;}];
+        edit = [{run = ''nvim "$@"''; block = true;}];
         open = [{run = ''xdg-open "$@"'';}];
         reveal = [{run = ''xdg-open "$(dirname "$0")"'';}];
       };

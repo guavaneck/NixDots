@@ -4,6 +4,7 @@
     ./dragon.nix
     ./firefox.nix
     ./font.nix
+    ./wayland
   ];
 
   home.packages = [
