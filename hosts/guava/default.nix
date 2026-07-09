@@ -25,6 +25,7 @@
 
   hardware.graphics.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.bluetooth.enable = true;
 
   system.stateVersion = "24.05";
 }

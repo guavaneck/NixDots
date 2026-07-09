@@ -23,6 +23,7 @@
 
       open = {
         rules = [
+          {mime = "inode/empty"; use = "edit";}
           {mime = "text/*"; use = "edit";}
           {mime = "application/*"; use = "open";}
           {mime = "image/*"; use = "open";}

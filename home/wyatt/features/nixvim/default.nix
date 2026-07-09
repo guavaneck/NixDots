@@ -10,6 +10,6 @@
     enable = true;
     nixpkgs.source = pkgs.path;
 
-    colorschemes.oxocarbon.enable = true;
+   opts.termguicolors = false; 
   };
 }

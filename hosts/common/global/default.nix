@@ -7,9 +7,11 @@
       inputs.home-manager.nixosModules.home-manager
       ./nix.nix
       ./tailscale.nix
+
   ];
    
   programs.fish.enable = true;
+  programs.dconf.enable = true;
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

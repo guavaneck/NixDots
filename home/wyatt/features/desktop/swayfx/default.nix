@@ -10,6 +10,10 @@
 
 
 in {
+  imports = [
+    ./waybar.nix
+  ];
+
   home.packages = with pkgs; [
     inputs.swaymonad.defaultPackage.${pkgs.system}
     wofi
@@ -24,18 +28,26 @@ in {
     package = pkgs.swayfx;
     checkConfig = false;
 
+    systemd.enable = true;
+
     extraConfig = ''
-      corner_radius 10
+      # ---- Window ----
+      corner_radius 20
+      gaps inner 10
+
       shadows enable
       shadow_blur_radius 20
       blur enable
       blur_radius 5
       blur_passes 2
+
+      default_border pixel 2
+      default_floating_border pixel 2
       for_window [class=".*"] dim_inactive_colors.unfocused-hovered #000000FF
       for_window [app_id=".*"] dim_inactive_colors.unfocused-hovered #000000FF
 
       # ----- swaymonad -----
-      exec_always "pkill -f swaymonad; ${swaymonad}"
+      exec_always ${swaymonad}
 
       bindsym ${mod}+Shift+${left} nop move left
       bindsym ${mod}+Shift+${down} nop move down
@@ -57,9 +69,7 @@ in {
         scale = "1";
       };
 
-      keybindings = let
-        mod = "Mod4";
-      in {
+      keybindings = {
         "${mod}+q" = "kill";
         "${mod}+Shift+r" = "reload";
         "${mod}+Shift+e" = "exec swaymsg exit";
@@ -112,6 +122,33 @@ in {
         "${mod}+Shift+8" = "move container to workspace number 8";
         "${mod}+Shift+9" = "move container to workspace number 9";
         "${mod}+Shift+0" = "move container to workspace number 10";
+
+        # ---- Modes ----
+        "${mod}+r" = "mode resize";
+        "${mod}+x" = "mode session";
+      };  
+      modes = {
+        resize = {
+          Escape = "mode default";
+          Return = "mode default";
+          "${down}" = "resize grow height 15 px or 15 ppt";
+          "${left}" = "resize shrink width 15 px or 15 ppt";
+          "${right}" = "resize grow width 15 px or 15 ppt";
+          "${up}" = "resize shrink height 15 px or 15 ppt";
+        };
+        session = {
+          # Session = launch:
+          # [h]ibernate [p]oweroff [r]eboot
+          # [s]uspend [l]ockscreen log[o]ut
+          Escape = "mode default";
+          Return = "mode default";
+          "h" = "exec systemctl hibernate, mode default";
+          "p" = "exec systemctl poweroff, mode default";
+          "r" = "exec systemctl reboot, mode default";
+          "s" = "exec systemctl suspend, mode default";
+          #"l" = "exec ${swaylock}/bin/swaylock, mode default";
+          "o" = "exec swaymsg exit, mode default";
+        };
       };
     };
   };

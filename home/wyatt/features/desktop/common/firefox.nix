@@ -15,6 +15,8 @@
         ublock-origin
       ]; 
       settings = {
+        "layout.css.prefers-color-scheme.content-override" = 0;
+
         "browser.startup.homepage" = "about:home";
 
         # Disable irritating first-run stuff

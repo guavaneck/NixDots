@@ -5,6 +5,8 @@
     ./firefox.nix
     ./font.nix
     ./wayland
+    ./theme.nix
+    ./colors.nix
   ];
 
   home.packages = [
