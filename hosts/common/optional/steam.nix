@@ -8,5 +8,10 @@
     enable = true;
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+
+    # steamwebhelper (CEF) crash-loops on RADV due to GPU compositing bugs
+    package = pkgs.steam.override {
+      extraArgs = "-cef-disable-gpu-compositing";
+    };
   };
 }
