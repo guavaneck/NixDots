@@ -17,10 +17,6 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    swaymonad = {
-      url = "github:nicolasavru/swaymonad";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
   };
 

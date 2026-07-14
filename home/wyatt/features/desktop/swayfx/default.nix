@@ -6,8 +6,6 @@
   up    = "k";
   right = "l";
 
-  swaymonad = "${inputs.swaymonad.defaultPackage.${pkgs.system}}/bin/swaymonad"; 
-
 
 in {
   imports = [
@@ -15,7 +13,6 @@ in {
   ];
 
   home.packages = with pkgs; [
-    inputs.swaymonad.defaultPackage.${pkgs.system}
     wofi
     cliphist
     wl-clipboard
@@ -35,6 +32,10 @@ in {
       corner_radius 20
       gaps inner 10
 
+      bar {
+        mode invisible 
+
+      }
       shadows enable
       shadow_blur_radius 20
       blur enable
@@ -45,14 +46,6 @@ in {
       default_floating_border pixel 2
       for_window [class=".*"] dim_inactive_colors.unfocused-hovered #000000FF
       for_window [app_id=".*"] dim_inactive_colors.unfocused-hovered #000000FF
-
-      # ----- swaymonad -----
-      exec_always ${swaymonad}
-
-      bindsym ${mod}+Shift+${left} nop move left
-      bindsym ${mod}+Shift+${down} nop move down
-      bindsym ${mod}+Shift+${up} nop move up
-      bindsym ${mod}+Shift+${right} nop move right
 
       mouse_warping container
       focus_wrapping yes
@@ -68,7 +61,8 @@ in {
         mode = "1920x1080@60Hz";
         scale = "1";
       };
-
+      defaultWorkspace = "workspace number 1";
+      bars = [];
       keybindings = {
         "${mod}+q" = "kill";
         "${mod}+Shift+r" = "reload";

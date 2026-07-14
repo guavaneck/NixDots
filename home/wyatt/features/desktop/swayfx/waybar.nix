@@ -509,10 +509,9 @@ in {
 
   services.mako = {
     enable = true;
-    settings.criteria = {
-      "mode=do-not-disturb" = {
-        invisible = 1;
-      };
-    };
+    extraConfig = ''
+      [mode=do-not-disturb]
+      invisible=1
+    '';
   };
 }

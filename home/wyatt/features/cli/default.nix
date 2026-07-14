@@ -2,15 +2,17 @@
   imports = [
     ./fish.nix
     ./git.nix
-    ./fastfetch.nix
   ];
 
   home.packages = with pkgs; [
     ripgrep
+    dosfstools
+    gparted
     fd
     bat
     eza
     nh
     zip
+    freshfetch
   ];
 }
