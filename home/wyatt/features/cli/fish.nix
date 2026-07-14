@@ -14,7 +14,7 @@
 
     shellAliases = {
       ls = "eza";
-      upgrade = "sudo nixos-rebuild switch --flake $HOME/dotfiles/";
+      upgrade = "sudo nixos-rebuild switch --flake $HOME/Test-Dotfiles/";
       fastfetch = "freshfetch";
     };
   };
