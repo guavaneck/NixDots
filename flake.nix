@@ -49,7 +49,11 @@
         modules = [./hosts/guava];
         specialArgs = {inherit inputs outputs;};
       };
-
+      
+      rokakaka = nixpkgs.lib.nixosSystem {
+        modules = [./hosts/rokakaka];
+        specialArgs = {inherit inputs outputs;};
+      };
       # add more hosts here
     };
   };
