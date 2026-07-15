@@ -8,11 +8,10 @@
     ./features/nixvim
     ./features/yazi.nix
     ./features/wallpaper.nix
-    ./features/games  
     ];
   
   wallpaper = pkgs.wallpapers.black; 
-
+  display = "1920x1080@60Hz";
   home = {
     username = "guava";
 

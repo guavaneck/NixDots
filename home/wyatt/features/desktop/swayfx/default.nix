@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: let 
+{pkgs, inputs, config, ...}: let 
   mod   = "Mod4"; 
 
   left  = "h";
@@ -57,8 +57,8 @@ in {
 
       floating.modifier = "Mod4 normal";
 
-      output."eDP-1" = {
-        mode = "1920x1080@60Hz";
+      output.${config.output} = {
+        mode = "${config.display}";
         scale = "1";
       };
       defaultWorkspace = "workspace number 1";

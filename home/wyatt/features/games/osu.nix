@@ -1,3 +1,3 @@
-{ pkgs, config, ... }: {
-  home.packages = [pkgs.osu-lazer];
+{config, pkgs, ... }: {
+  home.packages = with pkgs; [osu-lazer-bin];
 }

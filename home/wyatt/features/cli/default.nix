@@ -8,6 +8,7 @@
     ripgrep
     dosfstools
     gparted
+    bluetui
     fd
     bat
     eza

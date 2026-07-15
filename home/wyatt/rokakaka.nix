@@ -11,8 +11,9 @@
     ./features/games  
     ];
   
-  wallpaper = pkgs.wallpapers.black; 
-
+  wallpaper = pkgs.wallpapers.black;
+  output = "DP-1";
+  display = "2560x1440@180.002Hz";
   home = {
     username = "rokakaka";
 
