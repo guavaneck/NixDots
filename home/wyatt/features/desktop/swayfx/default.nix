@@ -63,6 +63,15 @@ in {
       };
       defaultWorkspace = "workspace number 1";
       bars = [];
+
+      input = {
+        "type:touchpad" = {
+          tap = "enabled";
+          natural_scroll = "enabled";
+          click_method = "clickfinger";
+        };
+      };
+
       keybindings = {
         "${mod}+q" = "kill";
         "${mod}+Shift+r" = "reload";
