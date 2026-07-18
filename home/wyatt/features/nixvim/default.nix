@@ -2,6 +2,7 @@
   imports = [
     ./_plugins/alpha.nix
     ./_plugins/telescope.nix
+    ./_plugins/yazi.nix
     ./_options.nix
     ./_highlights.nix
   ];
