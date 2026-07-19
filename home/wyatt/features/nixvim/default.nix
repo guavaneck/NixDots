@@ -3,6 +3,7 @@
     ./_plugins/alpha.nix
     ./_plugins/telescope.nix
     ./_plugins/yazi.nix
+    ./_plugins/fugitive.nix
     ./_options.nix
     ./_highlights.nix
   ];
