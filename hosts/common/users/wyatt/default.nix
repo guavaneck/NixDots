@@ -14,7 +14,7 @@
   users.users.rokakaka = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = ["wheel" "video" "audio" "docker" "networkmanager"];
+    extraGroups = ["wheel" "video" "audio" "render" "docker" "networkmanager"];
   };
 
   # picks the right home-manager config by hostname

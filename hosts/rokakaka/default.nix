@@ -11,16 +11,24 @@
 
     ../common/optional/sway.nix
     ../common/optional/docker.nix
-    ../common/optional/pipewire.nix
+    ../common/optional/pulseaudio.nix
     ../common/optional/steam.nix
     ../common/optional/krita.nix
   ];
  
   environment.systemPackages = [
     pkgs.brightnessctl
+    pkgs.noisetorch
   ];
 
   networking.hostName = "rokakaka";
+  networking.networkmanager.settings = {
+    device = {
+      "wifi.scan-rand-mac-address" = false;
+    };
+  };
+  
+  programs.noisetorch.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

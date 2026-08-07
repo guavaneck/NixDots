@@ -8,6 +8,4 @@
     pulse.enable = true;
     jack.enable = true;
   };
-
-  environment.systemPackages = [pkgs.pulseaudio];
 }
