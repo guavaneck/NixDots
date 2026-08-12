@@ -52,6 +52,9 @@ in {
     '';
 
     config = {
+      startup = [
+        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK"; }
+      ];
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";
 

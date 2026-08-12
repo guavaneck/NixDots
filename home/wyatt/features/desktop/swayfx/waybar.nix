@@ -246,7 +246,7 @@ in {
         format-disabled = "bt <span style='italic' weight='900' color='${colors.accent}'>{status}</span>";
         format-connected = "bt <span style='italic' weight='900' color='${colors.accent}'>{status}</span> {num_connections}";
         tooltip-format = "Devices connected: {num_connections}";
-        on-click = "${pkgs.kitty}/bin/kitty -e ${pkgs.bluez}/bin/bluetoothctl";
+        on-click = "${pkgs.kitty}/bin/kitty -e ${pkgs.bluetui}/bin/bluetui";
       };
 
       pulseaudio = {

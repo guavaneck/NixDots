@@ -11,14 +11,17 @@
 
     ../common/optional/sway.nix
     ../common/optional/docker.nix
-    ../common/optional/pulseaudio.nix
+    ../common/optional/pipewire.nix
     ../common/optional/steam.nix
     ../common/optional/krita.nix
+    ../common/optional/obs.nix
+    ../common/optional/pc-bluetooth-fix.nix
   ];
  
   environment.systemPackages = [
     pkgs.brightnessctl
-    pkgs.noisetorch
+    pkgs.easyeffects
+    pkgs.kicad
   ];
 
   networking.hostName = "rokakaka";
@@ -28,7 +31,14 @@
     };
   };
   
-  programs.noisetorch.enable = true;
+  programs.obs-studio.enableVirtualCamera = true;
+ 
+  services.flatpak.enable = true;
+
+  services.udev.extraRules = ''
+    # ----- yunzii keyboard hid access for wyatt only -----
+    KERNEL=="hidraw*", ATTRS{idVendor}=="3151", MODE="0660", OWNER="rokakaka", TAG+="uaccess"
+  '';
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
