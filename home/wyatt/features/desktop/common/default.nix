@@ -6,6 +6,7 @@
     ./font.nix
     ./wayland
     ./theme.nix
+    ./phone-mic.nix
   ];
 
   home.packages = [

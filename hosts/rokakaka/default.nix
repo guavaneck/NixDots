@@ -16,6 +16,7 @@
     ../common/optional/krita.nix
     ../common/optional/obs.nix
     ../common/optional/pc-bluetooth-fix.nix
+    ../common/optional/mumble-server.nix
   ];
  
   environment.systemPackages = [
@@ -40,7 +41,22 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="3151", MODE="0660", OWNER="rokakaka", TAG+="uaccess"
   '';
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev"; # or your disk, e.g. "/dev/sda" if not using EFI
+    efiSupport = true;
+    useOSProber = true;
+  };
+  boot.loader.grub.extraEntries = ''
+    menuentry "Windows" {
+      insmod part_gpt
+      insmod fat
+      insmod chain
+      search --fs-uuid --set=root B226-4143
+      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.graphics.enable = true;
