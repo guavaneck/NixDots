@@ -15,5 +15,6 @@
     nh
     zip
     freshfetch
+    codex
   ];
 }

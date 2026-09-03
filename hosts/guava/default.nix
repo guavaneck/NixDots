@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  outputs,
   ...
 }: {
   imports = [
@@ -17,6 +18,8 @@
  
   environment.systemPackages = [
     pkgs.brightnessctl
+    pkgs.qemu
+    pkgs.quickemu
   ];
 
   networking.hostName = "guava";
