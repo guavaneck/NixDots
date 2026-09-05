@@ -12,6 +12,19 @@
     enable = true;
     nixpkgs.source = pkgs.path;
 
-   opts.termguicolors = false; 
+    opts.termguicolors = true;
+
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        flavour = "latte";
+        transparent_background = true;
+      };
+    };
+
+    plugins.treesitter = {
+      enable = true;
+      highlight.enable = true;
+    };
   };
 }
