@@ -23,6 +23,16 @@
     pkgs.brightnessctl
     pkgs.easyeffects
     pkgs.kicad
+    pkgs.appimage-run
+    inputs.terax.packages.${pkgs.system}.terax
+    inputs.lmstudio.packages.${pkgs.system}.default
+
+    pkgs.rocmPackages.rocminfo
+    pkgs.rocmPackages.rocm-smi
+    pkgs.rocmPackages.clr
+    pkgs.rocmPackages.rocblas
+    pkgs.rocmPackages.hipblas
+
   ];
 
   networking.hostName = "rokakaka";
@@ -33,7 +43,17 @@
   };
   
   programs.obs-studio.enableVirtualCamera = true;
- 
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    vulkan-loader
+    rocmPackages.clr
+    rocmPackages.rocblas
+    rocmPackages.rocsolver
+  ];
+
   services.flatpak.enable = true;
 
   services.udev.extraRules = ''
@@ -63,6 +83,12 @@
   hardware.graphics.enable32Bit = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.bluetooth.enable = true;
+  hardware.amdgpu.opencl.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
 
   systemd.services.disable-onboard-bluetooth = {
     description = "Power off onboard Realtek Bluetooth adapter";

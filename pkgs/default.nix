@@ -1,5 +1,6 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
-  
-  llmster = pkgs.callPackage ./llmster {};
+
+  koan = pkgs.callPackage ./koan {};
+
   # some-tool = pkgs.callPackage ./some-tool {};
 }

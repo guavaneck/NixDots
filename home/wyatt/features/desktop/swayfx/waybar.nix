@@ -200,7 +200,7 @@ in {
       };
 
       "custom/clock" = {
-        exec = "date +'%H:%M %p - %A, %b %d' | tr '[:upper:]' '[:lower:]'";
+        exec = "date +'%H:%M - %A, %b %d' | tr '[:upper:]' '[:lower:]'";
         interval = 60;
         tooltip = false;
       };

@@ -17,6 +17,14 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    terax = {
+      url = "github:crynta/terax-ai";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lmstudio = {
+      url = "github:Daaboulex/lmstudio-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 

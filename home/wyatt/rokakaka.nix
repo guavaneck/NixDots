@@ -18,7 +18,8 @@
     username = "rokakaka";
 
     packages = with pkgs; [
-      llmster
+      koan
+
       # ...
     ];
   };

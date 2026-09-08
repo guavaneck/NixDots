@@ -6,12 +6,19 @@
     profiles.wyatt = {
       search = {
         force = true;
-        default = "ddg";
+        default = "qwant";
         engines = {
           bing.metaData.hidden = true;
+          qwant = {
+            name = "Qwant";
+            urls = [{
+              template = "https://www.qwant.com/?q={searchTerms}";
+            }];
+          };
         };
       };
       extensions.packages = with pkgs.inputs.firefox-addons; [
+        qwant-tracker-blocker
         ublock-origin
       ]; 
       settings = {

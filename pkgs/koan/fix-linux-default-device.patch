@@ -1,0 +1,18 @@
+diff --git a/crates/koan-core/src/audio/cpal_backend.rs b/crates/koan-core/src/audio/cpal_backend.rs
+index cc4276c..96f85a0 100644
+--- a/crates/koan-core/src/audio/cpal_backend.rs
++++ b/crates/koan-core/src/audio/cpal_backend.rs
+@@ -82,6 +82,13 @@ impl CpalBackend {
+     /// Resolve a `DeviceInfo` back to a cpal `Device` by matching name.
+     fn resolve_device(&self, info: &DeviceInfo) -> Result<cpal::Device, BackendError> {
++        if let Some(device) = suppress_stderr(|| self.host.default_output_device())
++            && let Ok(description) = device.description()
++            && description.name() == info.name
++        {
++            return Ok(device);
++        }
++
+         let devices = self
+             .host
+             .output_devices()
+             .map_err(|e| BackendError::Platform(e.to_string()))?;
