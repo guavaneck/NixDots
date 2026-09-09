@@ -10,12 +10,22 @@
 
   mprisBracketVisible = side:
     pkgs.writeShellScript "waybar-mpris-bracket-${side}" ''
-      if ${pkgs.playerctl}/bin/playerctl status 2>/dev/null | grep -qE "Playing|Paused"; then
+      if ${pkgs.coreutils}/bin/timeout 1 ${pkgs.playerctl}/bin/playerctl status 2>/dev/null | grep -qE "Playing|Paused"; then
         echo "{\"text\":\"${side}\",\"class\":\"show\"}"
       else
         echo "{\"text\":\"\",\"class\":\"hide\"}"
       fi
     '';
+
+  mprisStatus = pkgs.writeShellScript "waybar-mpris-status" ''
+    status=$(${pkgs.coreutils}/bin/timeout 1 ${pkgs.playerctl}/bin/playerctl status 2>/dev/null) || exit 0
+    metadata=$(${pkgs.coreutils}/bin/timeout 1 ${pkgs.playerctl}/bin/playerctl metadata --format '{{artist}} - {{title}}' 2>/dev/null) || exit 0
+    if [ "$status" = "Paused" ]; then
+      echo "󰝛 $metadata"
+    else
+      echo " $metadata"
+    fi
+  '';
 
   trayIndicator = pkgs.writeShellScript "waybar-tray-indicator" ''
     count=$(${pkgs.systemd}/bin/busctl --user get-property org.kde.StatusNotifierWatcher /StatusNotifierWatcher org.kde.StatusNotifierWatcher RegisteredStatusNotifierItems 2>/dev/null | sed -n 's/^as \([0-9]\+\).*/\1/p')
@@ -74,10 +84,10 @@ in {
         "custom/notification-silencing-indicator"
         "custom/separator2"
         "custom/separator5"
-        "mpris"
+        "custom/mpris"
         "custom/separator6"
       ];
-      modules-center = ["custom/separator" "custom/clock" "custom/separator2"];
+      modules-center = ["custom/separator" "clock" "custom/separator2"];
       modules-right = [
         "custom/separator"
         "bluetooth"
@@ -159,6 +169,15 @@ in {
         tooltip-format = "Click to toggle do-not-disturb";
       };
 
+      "custom/mpris" = {
+        exec = "${mprisStatus}";
+        interval = 2;
+        max-length = 40;
+        escape = true;
+        on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
+        tooltip = false;
+      };
+
       "power-profiles-daemon" = {
         justify = "center";
         format = "power {icon}";
@@ -199,8 +218,8 @@ in {
         };
       };
 
-      "custom/clock" = {
-        exec = "date +'%H:%M - %A, %b %d' | tr '[:upper:]' '[:lower:]'";
+      clock = {
+        format = "{:%H:%M - %A, %b %d}";
         interval = 60;
         tooltip = false;
       };
@@ -264,17 +283,6 @@ in {
         states = {
           warning = 50;
           critical = 10;
-        };
-      };
-
-      mpris = {
-        format = " {dynamic}";
-        format-paused = "<span color='grey'>{status_icon} {dynamic}</span>";
-        title-len = 20;
-        dynamic-order = ["artist" "title"];
-        tooltip-format = "{player} ({status}):\n{artist} - {title}";
-        status-icons = {
-          paused = "󰝛";
         };
       };
 
@@ -371,10 +379,10 @@ in {
       }
 
       #memory,
-      #mpris,
+      #custom-mpris,
       #tray,
       #cpu,
-      #custom-clock,
+      #clock,
       #battery,
       #backlight,
       #network,
@@ -453,7 +461,7 @@ in {
         opacity: 0;
       }
 
-      #mpris {
+      #custom-mpris {
         opacity: 1;
         color: ${colors.foreground};
         animation: repeat;

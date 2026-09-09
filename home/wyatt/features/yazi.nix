@@ -16,9 +16,9 @@
       };
 
       opener = {
-        edit = [{run = ''nvim "$@"''; block = true;}];
-        open = [{run = ''xdg-open "$@"'';}];
-        reveal = [{run = ''xdg-open "$(dirname "$0")"'';}];
+        edit = [{run = "nvim %s"; block = true;}];
+        open = [{run = "xdg-open %s1";}];
+        reveal = [{run = "xdg-open %d1";}];
       };
 
       open = {
