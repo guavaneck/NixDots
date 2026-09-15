@@ -7,6 +7,7 @@
     ./wayland
     ./theme.nix
     ./phone-mic.nix
+    ./godot.nix
   ];
 
   home.packages = [

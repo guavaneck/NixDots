@@ -47,6 +47,10 @@ in {
       for_window [class=".*"] dim_inactive_colors.unfocused-hovered #000000FF
       for_window [app_id=".*"] dim_inactive_colors.unfocused-hovered #000000FF
 
+      # Godot exposes its XWayland popups as normal windows. Keep the main
+      # "… - Godot Engine" editor tiled, and float its auxiliary windows.
+      for_window [class="^Godot$" title="^(?!.*Godot Engine$).*$"] floating enable
+
       mouse_warping container
       focus_wrapping yes
     '';

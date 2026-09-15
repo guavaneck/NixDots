@@ -4,6 +4,10 @@
     ./_plugins/telescope.nix
     ./_plugins/yazi.nix
     ./_plugins/fugitive.nix
+    ./_plugins/mini.nix
+    ./_plugins/parinfer.nix
+    ./_plugins/lsp.nix
+    ./_plugins/godot.nix
     ./_options.nix
     ./_highlights.nix
   ];
