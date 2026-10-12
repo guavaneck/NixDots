@@ -1,16 +1,138 @@
-{pkgs, inputs, config, ...}: let 
-  mod   = "Mod4"; 
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}: let
+  mod = "Mod4";
 
-  left  = "h";
-  down  = "j";
-  up    = "k";
+  left = "h";
+  down = "j";
+  up = "k";
   right = "l";
-
-
 in {
   imports = [
     ./waybar.nix
   ];
+
+  services.elephant = {
+    enable = true;
+    settings.providers = {
+      default = ["desktopapplications"];
+      empty = ["desktopapplications"];
+      max_results = 50;
+      prefixes = [
+        {
+          prefix = "/";
+          provider = "files";
+        }
+        {
+          prefix = "~";
+          provider = "files";
+        }
+      ];
+    };
+  };
+
+  services.walker = {
+    enable = true;
+    systemd.enable = true;
+    settings = {
+      theme = "minimal";
+      close_when_open = true;
+      click_to_close = true;
+      force_keyboard_focus = true;
+      hide_action_hints = true;
+      hide_quick_activation = true;
+      placeholders = {
+        default = {
+          input = "Launch application";
+          list = "No applications found";
+        };
+        files = {
+          input = "Browse files";
+          list = "No files found";
+        };
+      };
+    };
+    theme = {
+      name = "minimal";
+      style = ''
+        @define-color background #303030;
+        @define-color foreground #eeeeee;
+        @define-color selected #484848;
+
+        * {
+          all: unset;
+          font-family: ${config.fontProfiles.monospace.name};
+          font-size: ${toString config.fontProfiles.monospace.size}px;
+        }
+
+        scrollbar {
+          opacity: 0;
+        }
+
+        .box-wrapper {
+          background: @background;
+          border: 1px solid #202020;
+          border-radius: 0;
+          box-shadow: none;
+          padding: 0;
+        }
+
+        .input {
+          background: #282828;
+          border-bottom: 1px solid #181818;
+          caret-color: @foreground;
+          color: @foreground;
+          padding: 6px 8px;
+        }
+
+        .input placeholder,
+        .item-subtext {
+          opacity: 0.55;
+        }
+
+        .list,
+        .placeholder,
+        .elephant-hint,
+        .preview,
+        .preview-box {
+          color: @foreground;
+        }
+
+        .item-box {
+          border-radius: 0;
+          padding: 4px 8px;
+        }
+
+        child:selected .item-box,
+        row:selected .item-box {
+          background: @selected;
+        }
+
+        .normal-icons {
+          -gtk-icon-size: 16px;
+        }
+
+        .large-icons {
+          -gtk-icon-size: 24px;
+        }
+
+        .preview {
+          border-left: 1px solid #202020;
+          border-radius: 0;
+          padding-left: 8px;
+        }
+
+        .error {
+          background: #8c3333;
+          color: @foreground;
+          padding: 4px 8px;
+        }
+      '';
+    };
+  };
 
   home.packages = with pkgs; [
     wofi
@@ -18,7 +140,7 @@ in {
     wl-clipboard
     grim
     slurp
-    ];
+  ];
 
   wayland.windowManager.sway = {
     enable = true;
@@ -33,7 +155,7 @@ in {
       gaps inner 10
 
       bar {
-        mode invisible 
+        mode invisible
 
       }
       shadows enable
@@ -57,7 +179,7 @@ in {
 
     config = {
       startup = [
-        { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK"; }
+        {command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK";}
       ];
       modifier = "Mod4";
       terminal = "${pkgs.kitty}/bin/kitty";
@@ -83,18 +205,18 @@ in {
         "${mod}+q" = "kill";
         "${mod}+Shift+r" = "reload";
         "${mod}+Shift+e" = "exec swaymsg exit";
-      
+
         "${mod}+Return" = "exec ${pkgs.kitty}/bin/kitty";
-        "${mod}+space" = "exec ${pkgs.wofi}/bin/wofi --show drun";
+        "${mod}+space" = "exec ${pkgs.walker}/bin/walker";
         "${mod}+Shift+v" = "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.wofi}/bin/wofi --dmenu | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
         "${mod}+s" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy";
         "${mod}+Shift+s" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\"";
-      
+
         "--locked XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "--locked XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "--locked XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "--locked XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-      
+
         "--locked XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
         "--locked XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
 
@@ -105,12 +227,12 @@ in {
         "${mod}+Shift+space" = "floating toggle";
         "${mod}+Tab" = "focus mode_toggle";
         "${mod}+a" = "focus parent";
-      
+
         "${mod}+${left}" = "focus left";
         "${mod}+${down}" = "focus down";
         "${mod}+${up}" = "focus up";
         "${mod}+${right}" = "focus right";
-      
+
         "${mod}+1" = "workspace number 1";
         "${mod}+2" = "workspace number 2";
         "${mod}+3" = "workspace number 3";
@@ -121,7 +243,7 @@ in {
         "${mod}+8" = "workspace number 8";
         "${mod}+9" = "workspace number 9";
         "${mod}+0" = "workspace number 10";
-      
+
         "${mod}+Shift+1" = "move container to workspace number 1";
         "${mod}+Shift+2" = "move container to workspace number 2";
         "${mod}+Shift+3" = "move container to workspace number 3";
@@ -136,7 +258,7 @@ in {
         # ---- Modes ----
         "${mod}+r" = "mode resize";
         "${mod}+x" = "mode session";
-      };  
+      };
       modes = {
         resize = {
           Escape = "mode default";

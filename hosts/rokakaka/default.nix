@@ -24,6 +24,8 @@
     pkgs.easyeffects
     pkgs.kicad
     pkgs.appimage-run
+    # Native browser with WebUSB support for tablet firmware flashing.
+    pkgs.chromium
     inputs.terax.packages.${pkgs.system}.terax
     inputs.lmstudio.packages.${pkgs.system}.default
 
@@ -59,6 +61,10 @@
   services.udev.extraRules = ''
     # ----- yunzii keyboard hid access for wyatt only -----
     KERNEL=="hidraw*", ATTRS{idVendor}=="3151", MODE="0660", OWNER="rokakaka", TAG+="uaccess"
+
+    # Wacom LC87 tablet firmware flasher (normal and bootloader modes).
+    KERNEL=="hidraw*", ATTRS{idVendor}=="056a", TAG+="uaccess"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0ca3", TAG+="uaccess"
   '';
 
   boot.loader.systemd-boot.enable = false;

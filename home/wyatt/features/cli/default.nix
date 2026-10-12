@@ -14,6 +14,8 @@
     eza
     nh
     zip
+    p7zip
+    appimage-run
     freshfetch
     codex
   ];

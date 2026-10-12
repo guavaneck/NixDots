@@ -19,12 +19,18 @@
         edit = [{run = "nvim %s"; block = true;}];
         open = [{run = "xdg-open %s1";}];
         reveal = [{run = "xdg-open %d1";}];
+        extract = [{run = "ya pub extract --list %s"; desc = "Extract here";}];
       };
 
       open = {
         rules = [
           {mime = "inode/empty"; use = "edit";}
           {mime = "text/*"; use = "edit";}
+          {url = "*.{7z,zip,rar,tar,gz,gzip,bz2,xz,zst}"; use = ["extract" "reveal"];}
+          {
+            mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
+            use = ["extract" "reveal"];
+          }
           {mime = "application/*"; use = "open";}
           {mime = "image/*"; use = "open";}
           {mime = "video/*"; use = "open";}
