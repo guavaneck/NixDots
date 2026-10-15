@@ -17,6 +17,7 @@
 
       opener = {
         edit = [{run = "nvim %s"; block = true;}];
+        browser = [{run = "xdg-open %s1"; desc = "Open in browser";}];
         open = [{run = "xdg-open %s1";}];
         reveal = [{run = "xdg-open %d1";}];
         extract = [{run = "ya pub extract --list %s"; desc = "Extract here";}];
@@ -25,6 +26,7 @@
       open = {
         rules = [
           {mime = "inode/empty"; use = "edit";}
+          {url = "*.{html,htm}"; use = ["edit" "browser"];}
           {mime = "text/*"; use = "edit";}
           {url = "*.{7z,zip,rar,tar,gz,gzip,bz2,xz,zst}"; use = ["extract" "reveal"];}
           {
